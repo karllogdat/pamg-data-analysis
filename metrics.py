@@ -49,7 +49,7 @@ def main():
     with open(output_path, "w") as f:
         f.write("File,Preset,Key,Correlation,Pitch_Class_Entropy\n")
         for file in dir_path.glob("*.mid"):
-            preset = file.stem.split("_")[1]
+            preset = file.stem.split("_")[0]
             key, corr = get_key_corr(file)
             entropy = pitch_class_entropy(file)
 
