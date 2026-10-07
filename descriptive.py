@@ -1,4 +1,5 @@
 import pandas as pd
+from math import log2
 
 harmoni_df = pd.read_csv('harmoni.csv')
 baseline_df = pd.read_csv('baseline.csv')
@@ -7,6 +8,10 @@ baseline_df.loc[baseline_df['Preset'] == 'A', 'Preset'] = 'Q1'
 baseline_df.loc[baseline_df['Preset'] == 'B', 'Preset'] = 'Q2'
 baseline_df.loc[baseline_df['Preset'] == 'C', 'Preset'] = 'Q3'
 baseline_df.loc[baseline_df['Preset'] == 'D', 'Preset'] = 'Q4'
+
+# convert raw pce values to 0-1 entropy values for easier interpretation
+harmoni_df['Pitch_Class_Entropy'] /= log2(12)
+baseline_df['Pitch_Class_Entropy'] /= log2(12)
 
 harmoni_mean_key_corr_df = harmoni_df.groupby('Preset').agg(Average_Correlation=('Correlation', 'mean'))
 baseline_mean_key_corr_df = baseline_df.groupby('Preset').agg(Average_Correlation=('Correlation', 'mean'))
