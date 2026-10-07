@@ -1,0 +1,11 @@
+.venv
+
+./wav
+./windowed_corr_graphs
+./arousal_timeline
+./valence_timeline
+
+*.csv
+
+wav.zip
+PAMG_System_Flow_Guide.md
