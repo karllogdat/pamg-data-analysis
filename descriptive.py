@@ -12,27 +12,27 @@ harmoni_mean_key_corr_df = harmoni_df.groupby('Preset').agg(Average_Correlation=
 baseline_mean_key_corr_df = baseline_df.groupby('Preset').agg(Average_Correlation=('Correlation', 'mean'))
 combined_mean_key_corr_df = pd.concat(
     [
-        harmoni_mean_key_corr_df.rename(columns={'Average_Correlation': 'Harmoni'}),
-        baseline_mean_key_corr_df.rename(columns={'Average_Correlation': 'Baseline'})
+        harmoni_mean_key_corr_df.rename(columns={'Average_Correlation': 'Mean_Harmoni'}),
+        baseline_mean_key_corr_df.rename(columns={'Average_Correlation': 'Mean_Baseline'})
     ],
     axis=1
 )
 
-print("\n===== Mean Key Correlation =====")
-print(combined_mean_key_corr_df)
+# print("\n===== Mean Key Correlation =====")
+# print(combined_mean_key_corr_df)
 
 harmoni_mean_pce_df = harmoni_df.groupby('Preset').agg(Average_PCE=('Pitch_Class_Entropy', 'mean'))
 baseline_mean_pce_df = baseline_df.groupby('Preset').agg(Average_PCE=('Pitch_Class_Entropy', 'mean'))
 combined_mean_pce_df = pd.concat(
     [
-        harmoni_mean_pce_df.rename(columns={'Average_PCE': 'Harmoni'}),
-        baseline_mean_pce_df.rename(columns={'Average_PCE': 'Baseline'})
+        harmoni_mean_pce_df.rename(columns={'Average_PCE': 'Mean_Harmoni'}),
+        baseline_mean_pce_df.rename(columns={'Average_PCE': 'Mean_Baseline'})
     ],
     axis=1
 )
 
-print("\n===== Mean Pitch Class Entropy =====")
-print(combined_mean_pce_df)
+# print("\n===== Mean Pitch Class Entropy =====")
+# print(combined_mean_pce_df)
 
 harmoni_sd_key_corr_df = harmoni_df.groupby('Preset').agg(SD_Correlation=('Correlation', 'std'))
 baseline_sd_key_corr_df = baseline_df.groupby('Preset').agg(SD_Correlation=('Correlation', 'std'))
@@ -44,8 +44,11 @@ combined_sd_key_corr_df = pd.concat(
     axis=1
 )
 
-print("\n===== SD Key Correlation =====")
-print(combined_sd_key_corr_df)
+combined_mean_key_corr_df['SD_Harmoni'] = combined_sd_key_corr_df['Harmoni']
+combined_mean_key_corr_df['SD_Baseline'] = combined_sd_key_corr_df['Baseline']
+
+print("\n===== Key Correlation =====")
+print(combined_mean_key_corr_df)
 
 harmoni_sd_pce_df = harmoni_df.groupby('Preset').agg(SD_PCE=('Pitch_Class_Entropy', 'std'))
 baseline_sd_pce_df = baseline_df.groupby('Preset').agg(SD_PCE=('Pitch_Class_Entropy', 'std'))
@@ -57,5 +60,8 @@ combined_sd_pce_df = pd.concat(
     axis=1
 )
 
-print("\n===== SD Pitch Class Entropy =====")
-print(combined_sd_pce_df)
+combined_mean_pce_df['SD_Harmoni'] = combined_sd_pce_df['Harmoni']
+combined_mean_pce_df['SD_Baseline'] = combined_sd_pce_df['Baseline']
+
+print("\n===== Pitch Class Entropy =====")
+print(combined_mean_pce_df)
